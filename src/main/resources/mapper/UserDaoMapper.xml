@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <!--查询所有-->
+    <select id="selectAll" resultType="User">
+        select id,name,password,age,birthday,iphone,status from t_user;
+    </select>
+
+    <!--添加-->
+    <insert id="insert" parameterType="User">
+        insert into t_user values(#{id},#{name},#{password},#{age},#{birthday},#{iphone},#{status})
+    </insert>
+
+    <!--修改-->
+    <update id="update" parameterType="User">
+        update t_user
+        <trim prefix="set" prefixOverrides=",">
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="age!=null">
+                age=#{age},
+            </if>
+            <if test="birthday!=null">
+                birthday=#{birthday},
+            </if>
+            <if test="iphone!=null">
+                iphone=#{iphone},
+            </if>
+            <if test="status!=null">
+                status=#{status}
+            </if>
+            where id=#{id}
+        </trim>
+    </update>
+    
+    <!--删除-->
+    <delete id="delete" parameterType="String">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <!--根据id查询-->
+    <select id="selectById" parameterType="String" resultType="User">
+        select id,name,password,age,birthday,iphone,status from t_user where id =#{id}
+    </select>
+
+    <!--模糊查询-->
+    <select id="selectByLike" parameterType="User" resultType="User">
+        select id,name,password,age,birthday,iphone,status from t_user
+        <trim prefix="where" prefixOverrides="and">
+            <if test="name!=null">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="iphone!=''">
+                and iphone = #{iphone}
+            </if>
+            <if test="status!=''">
+                and status = #{status}
+            </if>
+        </trim>
+    </select>
+
+    <!--分页查询-->
+    <select id="selectPage" resultType="User">
+        select id,name,password,age,birthday,iphone,status from t_user limit #{page},#{rows};
+    </select>
+
+    <select id="userTotalNumber" resultType="int">
+        select count(id) from t_user
+    </select>
+</mapper>

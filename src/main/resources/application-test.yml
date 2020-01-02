@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path: /userboot
+  tomcat:
+    uri-encoding: UTF-8
+  port: 5183
+spring:
+  datasource:
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.18.70:8066/mycat
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+      force-request: true
+      force-response: true
+  servlet:
+    multipart:
+      max-file-size: 1GB        #单个文件大小   默认1MB
+      max-request-size: 10GB    #同时上传多个文件大小  默认10MB
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.baizhi.entity
+logging:
+  level:
+    root: info
+    com.baizhi.dao: debug
+  pattern:
+    console: '[%p] %d{yyyy-MM-dd HH:mm:ss} %m %n'
+    file: '[%p] %d{yyyy-MM-dd HH:mm:ss} %m'

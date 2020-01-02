@@ -1,0 +1,25 @@
+server:
+  servlet:
+    context-path: /userboot
+  tomcat:
+    uri-encoding: UTF-8
+  port: 9999
+spring:
+  datasource:
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/novel?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.baizhi.entity
